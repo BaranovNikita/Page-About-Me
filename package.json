@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev-server": "webpack-dev-server",
-    "start": "webpack --config webpack.config.prod.js -p && node src/server/index.js",
+    "start": "node src/server/index.js",
     "build": "NODE_ENV=production webpack --config webpack.config.prod.js -p --progress --profile --colors",
     "prod": "NODE_ENV=production node src/server/index.js",
-    "stat": "webpack --json > stats.json"
+    "stat": "webpack --json > stats.json",
+    "postinstall": "webpack --config webpack.config.prod.js -p"
   },
   "keywords": [],
   "author": "",
@@ -22,8 +23,7 @@
     "react-router": "^3.0.2",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0",
-    "webpack": "^2.2.1"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "autoprefixer": "latest",
@@ -38,7 +38,8 @@
     "postcss-nested": "^1.0.0",
     "react-hot-loader": "^3.0.0-beta.6",
     "style-loader": "^0.13.1",
-    "webpack-dev-server": "^2.2.0"
+    "webpack-dev-server": "^2.2.0",
+    "webpack": "^2.2.1"
   },
   "engines": {
     "node": "7.4.0",
