@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
 	entry: [
@@ -11,14 +12,14 @@ module.exports = {
 	output: {
 		filename: 'bundle.js',
 		path: resolve(__dirname, 'dist'),
-		publicPath: '/'
+		publicPath: '/assets/'
 	},
 	context: resolve(__dirname, 'src'),
 	devtool: 'inline-source-map',
 	devServer: {
 		hot: true,
 		contentBase: resolve(__dirname, 'dist'),
-		publicPath: '/'
+		publicPath: '/assets/'
 	},
 	module: {
 		rules: [
@@ -29,12 +30,21 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				use: [ 'style-loader', 'css-loader?modules' , 'postcss-loader'],
+                use: ExtractTextPlugin.extract({
+                    fallbackLoader: "style-loader",
+                    loader: "css-loader?modules!postcss-loader"
+                })
 			},
 		],
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NamedModulesPlugin(),
+        new ExtractTextPlugin("styles.css"),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common',
+            minChunks: Infinity,
+            filename: 'common.js',
+        }),
 	]
 };
