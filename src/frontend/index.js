@@ -1,11 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {AppContainer} from 'react-hot-loader';
-import {createStore, compose, applyMiddleware} from 'redux'
-import thunk from 'redux-thunk';
-import rootReducer from './reducers';
-import Root from './Root';
-import App from './components/App';
+import React from "react";
+import ReactDOM from "react-dom";
+import {AppContainer} from "react-hot-loader";
+import {createStore, compose, applyMiddleware} from "redux";
+import thunk from "redux-thunk";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import rootReducer from "./reducers";
+import Root from "./Root";
+import App from "./components/App";
 
 const store = createStore(
 	rootReducer,
@@ -19,7 +20,9 @@ const store = createStore(
 const render = () => {
 	ReactDOM.render(
 		<AppContainer>
-			<Root store={store} />
+			<MuiThemeProvider>
+				<  Root store={store}/>
+			</MuiThemeProvider>
 		</AppContainer>,
 		document.getElementById('root')
 	);

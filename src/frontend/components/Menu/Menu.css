@@ -1,0 +1,13 @@
+.drawerHeader {
+  background-color: rgb(0, 188, 212);
+  height: 64px;
+  display: table;
+  width: 100%;
+  .text {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: white;
+    font-size: 32px;
+  }
+}

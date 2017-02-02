@@ -1,10 +1,12 @@
-import React from 'react';
-import styles from './App.css';
+import React from "react";
+import styles from "./App.css";
+import Menu from "../Menu";
 
 class App extends React.Component {
 	render() {
 		return (
-			<div className="container">
+			<div>
+				<Menu/>
 				<div className={styles.app}>
 					<div className={styles.big}>
 						this is big text
