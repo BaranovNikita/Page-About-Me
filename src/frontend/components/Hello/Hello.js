@@ -1,19 +1,22 @@
-import React from "react";
-import RaisedButton from "material-ui/RaisedButton";
+import React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Hello extends React.Component {
-  constructor() {
-    super();
-    this.onTouchHandle = this.onTouchHandle.bind(this);
-  }
+	constructor() {
+		super();
+		this.state = {
+			clicked: false,
+		};
+		this.onTouchHandle = this.onTouchHandle.bind(this);
+	}
 
-  onTouchHandle(e) {
-    console.log(e.target);
-  }
+	onTouchHandle() {
+		this.setState({ clicked: !this.state.clicked });
+	}
 
-  render() {
-    return <div>Hello!<RaisedButton label="Default" onTouchTap={this.onTouchHandle}/></div>;
-  }
+	render() {
+		return <div>Hello!<RaisedButton label="Default" onTouchTap={this.onTouchHandle} /></div>;
+	}
 }
 
 export default Hello;

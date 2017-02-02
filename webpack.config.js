@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+const {resolve} = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
@@ -11,7 +11,7 @@ module.exports = {
 	],
 	output: {
 		filename: 'bundle.js',
-    path: resolve(__dirname, 'dist/assets'),
+		path: resolve(__dirname, 'dist/assets'),
 		publicPath: '/assets/'
 	},
 	context: resolve(__dirname, 'src'),
@@ -25,26 +25,32 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js$/,
-				use: [ 'babel-loader' ],
+				use: ['babel-loader', 'eslint-loader'],
 				exclude: /node_modules/
 			},
 			{
-				test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallbackLoader: "style-loader",
-          loader: "css-loader?modules!postcss-loader"
-        })
+				test: /\.pcss$/,
+				use: ExtractTextPlugin.extract({
+					fallbackLoader: "style-loader",
+					loader: "css-loader?modules!postcss-loader"
+				})
 			},
 		],
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NamedModulesPlugin(),
-    new ExtractTextPlugin("styles.css"),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      minChunks: Infinity,
-      filename: 'common.js',
-    })
+		new ExtractTextPlugin("styles.css"),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'common',
+			minChunks: Infinity,
+			filename: 'common.js',
+		}),
+		new webpack.LoaderOptionsPlugin({
+			options: {
+				eslint: {configFile: './.eslintrc'},
+				context: './src',
+			},
+		})
 	]
 };
