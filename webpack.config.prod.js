@@ -2,23 +2,17 @@ const { resolve } = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require('autoprefixer');
+const postcssNested = require('postcss-nested');
 
 module.exports = {
-    entry: [
-        './frontend/index.js'
-    ],
+  entry: './frontend/index.js',
     output: {
         filename: 'bundle.js',
-        path: resolve(__dirname, 'dist'),
-        publicPath: '/assets'
+      path: resolve(__dirname, 'dist/assets'),
+      publicPath: '/assets/'
     },
     context: resolve(__dirname, 'src'),
-    devtool: 'source-map',
-    devServer: {
-        hot: true,
-        contentBase: resolve(__dirname, 'dist'),
-        publicPath: '/'
-    },
+  devtool: false,
     module: {
         rules: [
             {
@@ -27,11 +21,11 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallbackLoader: "style-loader",
-                    loader: "css-loader?modules!postcss-loader"
-                })
+              test: /\.css$/,
+              use: ExtractTextPlugin.extract({
+                fallbackLoader: "style-loader",
+                loader: "css-loader?modules!postcss-loader"
+              })
             }
         ],
     },
@@ -57,9 +51,11 @@ module.exports = {
                             'ie >= 10',
                         ],
                     }),
+                  postcssNested()
                 ],
                 context: './src',
             },
-        })
+        }),
+      new webpack.optimize.UglifyJsPlugin()
     ]
 };

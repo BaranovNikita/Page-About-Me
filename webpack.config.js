@@ -30,10 +30,10 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallbackLoader: "style-loader",
-                    loader: "css-loader?modules!postcss-loader"
-                })
+        use: ExtractTextPlugin.extract({
+          fallbackLoader: "style-loader",
+          loader: "css-loader?modules!postcss-loader"
+        })
 			},
 		],
 	},

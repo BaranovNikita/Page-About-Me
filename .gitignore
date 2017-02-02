@@ -38,7 +38,5 @@ jspm_packages
 
 .idea
 
-dist/*.js
-dist/*.css
-dist/*.map
+dist/assets
 /stats.json

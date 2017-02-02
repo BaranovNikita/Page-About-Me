@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev-server": "webpack-dev-server",
-    "start": "webpack && node src/server/index.js",
+    "start": "webpack --config webpack.config.prod.js -p && node src/server/index.js",
     "build": "NODE_ENV=production webpack --config webpack.config.prod.js -p --progress --profile --colors",
     "prod": "NODE_ENV=production node src/server/index.js",
     "stat": "webpack --json > stats.json"
@@ -15,7 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.1",
-    "lodash": "^4.17.4",
     "material-ui": "^0.16.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -40,5 +39,9 @@
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.2.0"
+  },
+  "engines": {
+    "node": "7.4.0",
+    "npm": "4.0.5"
   }
 }
