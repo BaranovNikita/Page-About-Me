@@ -4,6 +4,7 @@ class SignUp extends React.Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.state = {
       first_name: '',
       last_name: '',
@@ -18,6 +19,11 @@ class SignUp extends React.Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  handleClick() {
+      this.setState({isLoading: true});
+      setTimeout(()=> this.setState({isLoading: false}), 2000);
+  }
+
   render() {
     return (
       <Paper zDepth={2}>
@@ -27,8 +33,10 @@ class SignUp extends React.Component {
         <TextField hintText="Password" onChange={this.handleChange} name='password' type='password' fullWidth={true}/>
         <TextField hintText="Confirm Password" onChange={this.handleChange} name='passwordConfirm' type='password'
                    fullWidth={true}/>
-        <RaisedButton label='Sign Up' style={{'display': (this.state.isLoading ? 'none' : 'block')}}/>
-        <CircularProgress style={{'display': (!this.state.isLoading ? 'none' : 'block')}}/>
+        <RaisedButton label='Sign Up'
+                      style={{'display': (this.state.isLoading ? 'none' : 'block')}}
+                      onTouchTap={this.handleClick}/>
+        <CircularProgress style={{'display': (!this.state.isLoading ? 'none' : 'block'), margin: 'auto'}}/>
       </Paper>
     );
   }
