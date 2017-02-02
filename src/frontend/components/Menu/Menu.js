@@ -2,6 +2,7 @@ import React from "react";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import {Drawer, AppBar, MenuItem, IconMenu, IconButton, Dialog} from "material-ui";
 import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
+import SignUp from "../SignUp/SignUp";
 import styles from "./Menu.css";
 injectTapEventPlugin();
 
@@ -10,12 +11,12 @@ class Menu extends React.Component {
     super();
     this.state = {
       drawerOpen: false,
-      loginDialog: false
+      signupDialog: false
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.closeDrawer = this.closeDrawer.bind(this);
-    this.loginDialogClose = this.loginDialogClose.bind(this);
-    this.loginDialogOpen = this.loginDialogOpen.bind(this);
+    this.signupDialogClose = this.signupDialogClose.bind(this);
+    this.signupDialogOpen = this.signupDialogOpen.bind(this);
   }
 
   handleToggle() {
@@ -26,12 +27,12 @@ class Menu extends React.Component {
     this.setState({drawerOpen: false});
   }
 
-  loginDialogClose() {
-    this.setState({loginDialog: false});
+  signupDialogClose() {
+    this.setState({signupDialog: false});
   }
 
-  loginDialogOpen() {
-    this.setState({loginDialog: true});
+  signupDialogOpen() {
+    this.setState({signupDialog: true});
   }
 
   render() {
@@ -43,8 +44,8 @@ class Menu extends React.Component {
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem primaryText="Login" onTouchTap={this.loginDialogOpen}/>
-        <MenuItem primaryText="Sign in"/>
+        <MenuItem primaryText="Login"/>
+        <MenuItem primaryText="Sign up" onTouchTap={this.signupDialogOpen}/>
       </IconMenu>);
     return (<div>
       <AppBar title='Baranov Nikita'
@@ -63,12 +64,12 @@ class Menu extends React.Component {
         <MenuItem>Menu Item 2</MenuItem>
       </Drawer>
       <Dialog
-        title="Dialog With Actions"
+        title="SignUp"
         modal={false}
-        open={this.state.loginDialog}
-        onRequestClose={this.loginDialogClose}
+        open={this.state.signupDialog}
+        onRequestClose={this.signupDialogClose}
       >
-        The actions in this window were passed in as an array of React objects.
+        <SignUp/>
       </Dialog>
     </div>);
   }
