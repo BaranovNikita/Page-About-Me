@@ -40,11 +40,11 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NamedModulesPlugin(),
-        new ExtractTextPlugin("styles.css"),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'common',
-            minChunks: Infinity,
-            filename: 'common.js',
-        }),
+    new ExtractTextPlugin("styles.css"),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'common',
+      minChunks: Infinity,
+      filename: 'common.js',
+    })
 	]
 };
