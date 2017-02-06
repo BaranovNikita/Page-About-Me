@@ -32,13 +32,14 @@ class SignUp extends React.Component {
 	}
 
 	handleBlur(e) {
+		this.setState({ isLoading: true });
 		const errors = signupValidate(this.state);
 		if (Object.prototype.hasOwnProperty.call(errors, e.target.name)) {
-			this.setState({ errors: Object.assign({}, this.state.errors, errors) });
+			this.setState({ errors: Object.assign({}, this.state.errors, errors), isLoading: false });
 		} else {
 			const newStateError = { ...this.state.errors };
 			delete newStateError[e.target.name];
-			this.setState({ errors: newStateError });
+			this.setState({ errors: newStateError, isLoading: false });
 		}
 	}
 
@@ -80,7 +81,7 @@ class SignUp extends React.Component {
 				<TextField
 					hintText='Confirm Password'
 					onChange={this.handleChange}
-					name='passwordConfirm'
+					name='passwordConfirmation'
 					type='password'
           fullWidth
 					onBlur={this.handleBlur}
