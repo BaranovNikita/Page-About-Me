@@ -4,7 +4,7 @@ import { AppContainer } from 'react-hot-loader';
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import rootReducer from './reducers';
+import rootReducer from './reducers/rootReducer';
 import Root from './Root';
 import App from './components/App';
 

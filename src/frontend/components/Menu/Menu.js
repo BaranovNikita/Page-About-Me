@@ -1,7 +1,7 @@
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Drawer, AppBar, MenuItem, Dialog, Toolbar, ToolbarGroup, RaisedButton } from 'material-ui';
-import SignUp from '../SignUp/SignUp';
+import SignUpWrapper from '../SignUp/SignUpWrapper';
 import styles from './Menu.pcss';
 
 injectTapEventPlugin();
@@ -39,20 +39,20 @@ class Menu extends React.Component {
 		return (
 			<div>
 				<AppBar
-  title="Baranov Nikita"
-  onLeftIconButtonTouchTap={this.handleToggle}
+					title='Baranov Nikita'
+					onLeftIconButtonTouchTap={this.handleToggle}
 				>
 					<Toolbar style={{ backgroundColor: 'transparent', height: 64 }}>
 						<ToolbarGroup>
-							<RaisedButton label="Login" />
-							<RaisedButton label="Sign up" secondary onTouchTap={this.signupDialogOpen} />
+							<RaisedButton label='Login' />
+							<RaisedButton label='Sign up' secondary onTouchTap={this.signupDialogOpen} />
 						</ToolbarGroup>
 					</Toolbar>
 				</AppBar>
 				<Drawer
-  docked={false}
-  open={this.state.drawerOpen}
-  onRequestChange={this.closeDrawer}
+					docked={false}
+					open={this.state.drawerOpen}
+					onRequestChange={this.closeDrawer}
 				>
 					<div className={styles.drawerHeader}>
 						<div className={styles.text}>Baranov Nikita</div>
@@ -61,12 +61,12 @@ class Menu extends React.Component {
 					<MenuItem>Menu Item 2</MenuItem>
 				</Drawer>
 				<Dialog
-  title="SignUp"
-  modal={false}
-  open={this.state.signupDialog}
-  onRequestClose={this.signupDialogClose}
+					title='SignUp'
+					modal={false}
+					open={this.state.signupDialog}
+					onRequestClose={this.signupDialogClose}
 				>
-					<SignUp />
+					<SignUpWrapper />
 				</Dialog>
 			</div>);
 	}

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Paper, TextField, RaisedButton, CircularProgress } from 'material-ui';
+import { TextField, RaisedButton, CircularProgress } from 'material-ui';
 import { isEmpty } from 'lodash';
-import { userRegisterRequest } from '../../actions/UserActions';
 import signupValidate from '../../../share/validate/signup';
 
 class SignUp extends React.Component {
@@ -29,8 +28,7 @@ class SignUp extends React.Component {
 
 	handleClick() {
 		this.setState({ isLoading: true });
-		console.log(userRegisterRequest);
-		userRegisterRequest(this.state)
+		this.props.userRegisterRequest(this.state)
 			.then(user => {
 				console.log(user);
 				this.setState({ isLoading: false });
@@ -55,7 +53,7 @@ class SignUp extends React.Component {
 
 	render() {
 		return (
-			<Paper zDepth={2}>
+			<div>
 				<TextField
 					hintText='First name'
 					onChange={this.handleChange}
@@ -107,9 +105,13 @@ class SignUp extends React.Component {
 				<CircularProgress
 					style={{ display: (!this.state.isLoading ? 'none' : 'block'), margin: 'auto' }}
 				/>
-			</Paper>
+			</div>
 		);
 	}
 }
+
+SignUp.propTypes = {
+	userRegisterRequest: React.PropTypes.func.isRequired
+};
 
 export default SignUp;
