@@ -1,6 +1,7 @@
 import React from 'react';
 import { Paper, TextField, RaisedButton, CircularProgress } from 'material-ui';
 import { isEmpty } from 'lodash';
+import { userRegisterRequest } from '../../actions/UserActions';
 import signupValidate from '../../../share/validate/signup';
 
 class SignUp extends React.Component {
@@ -28,7 +29,16 @@ class SignUp extends React.Component {
 
 	handleClick() {
 		this.setState({ isLoading: true });
-		setTimeout(() => this.setState({ isLoading: false }), 2000);
+		console.log(userRegisterRequest);
+		userRegisterRequest(this.state)
+			.then(user => {
+				console.log(user);
+				this.setState({ isLoading: false });
+			})
+			.catch(err => {
+				console.log(err);
+				this.setState({ isLoading: false });
+			});
 	}
 
 	handleBlur(e) {

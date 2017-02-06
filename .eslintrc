@@ -2,7 +2,6 @@
   parser: "babel-eslint",
   "extends": "airbnb",
   "rules": {
-    "linebreak-style": ["error", "windows"],
     "jsx-filename-extension": [0],
     "no-tabs": 0,
     "indent": ["error", "tab"],
@@ -11,7 +10,8 @@
     "react/forbid-prop-types": 0,
     "react/prefer-stateless-function": 0,
     "react/jsx-indent-props": 0,
-    "jsx-quotes": ["error", "prefer-single"]
+    "jsx-quotes": ["error", "prefer-single"],
+    "comma-dangle": 0
   },
   "globals": {
     "window": true,
