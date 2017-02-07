@@ -11,10 +11,25 @@ const mongoose = require('mongoose');
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
-	app.use(express.static('dist'));
+	if (process.env.NEED_HOT) {
+		const webpack = require('webpack');
+		const webpackMiddleware = require('webpack-dev-middleware');
+		const webpackHotMiddleware = require('webpack-hot-middleware');
+		const webpackConfig = require('../../webpack.config');
+		const compiler = webpack(webpackConfig);
+
+		app.use(webpackMiddleware(compiler, {
+			hot: true,
+			publicPath: webpackConfig.output.publicPath,
+			noInfo: true
+		}));
+		app.use(webpackHotMiddleware(compiler));
+	} else {
+		app.use(express.static('dist'));
+	}
 }
 
-mongoose.connect('mongodb://localhost/page-about-me');
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/page-about-me');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

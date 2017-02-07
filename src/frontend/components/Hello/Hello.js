@@ -15,7 +15,7 @@ class Hello extends React.Component {
 	}
 
 	render() {
-		return <div>Hello!<RaisedButton label="Default" onTouchTap={this.onTouchHandle} /></div>;
+		return <div>Hello!<RaisedButton label='Default' onTouchTap={this.onTouchHandle} /></div>;
 	}
 }
 

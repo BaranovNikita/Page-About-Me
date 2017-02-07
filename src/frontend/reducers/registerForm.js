@@ -13,7 +13,7 @@ const initialState = {
 export default function registerForm(state = initialState, action) {
 	switch (action.type) {
 		case SAVE_REGISTER_FORM_DATA:
-			return { ...action.data };
+			return { ...state, ...action.data };
 		case CLEAR_REGISTER_FORM_DATA:
 			return initialState;
 		default:

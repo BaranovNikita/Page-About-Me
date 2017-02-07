@@ -11,7 +11,9 @@
     "react/jsx-indent-props": 0,
     "jsx-quotes": ["error", "prefer-single"],
     "comma-dangle": 0,
-    "indent": ["error", "tab", { "SwitchCase": 1 }]
+    "indent": ["error", "tab", { "SwitchCase": 1 }],
+    "jsx-a11y/no-marquee": 0,
+    "no-shadow": 0
   },
   "globals": {
     "window": true,

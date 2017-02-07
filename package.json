@@ -51,14 +51,16 @@
     "eslint-config-airbnb": "^14.0.0",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
-    "extract-text-webpack-plugin": "^2.0.0-rc.2",
+    "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "postcss-loader": "^1.2.2",
     "postcss-nested": "^1.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.2.0"
+    "webpack-dev-middleware": "latest",
+    "webpack-dev-server": "^2.2.0",
+    "webpack-hot-middleware": "^2.16.1"
   },
   "engines": {
     "node": "7.4.0",

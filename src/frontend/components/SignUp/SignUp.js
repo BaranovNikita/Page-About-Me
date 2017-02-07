@@ -22,6 +22,14 @@ class SignUp extends React.Component {
 		};
 	}
 
+	componentWillMount() {
+		this.setState(this.props.formData);
+	}
+
+	componentWillUnmount() {
+		this.props.saveFormData(this.state);
+	}
+
 	handleChange(e) {
 		this.setState({ [e.target.name]: e.target.value });
 	}
@@ -29,13 +37,15 @@ class SignUp extends React.Component {
 	handleClick() {
 		this.setState({ isLoading: true });
 		this.props.userRegisterRequest(this.state)
-			.then(user => {
+			.then((user) => {
 				console.log(user);
 				this.setState({ isLoading: false });
+				this.props.clearFormData();
 			})
-			.catch(err => {
+			.catch((err) => {
 				console.log(err);
 				this.setState({ isLoading: false });
+				this.props.clearFormData();
 			});
 	}
 
@@ -59,6 +69,7 @@ class SignUp extends React.Component {
 					onChange={this.handleChange}
 					name='first_name' fullWidth
 					onBlur={this.handleBlur}
+					value={this.state.first_name}
 					errorText={this.state.errors.first_name}
 				/>
 				<TextField
@@ -66,6 +77,7 @@ class SignUp extends React.Component {
 					onChange={this.handleChange}
 					name='last_name'
 					fullWidth
+					value={this.state.last_name}
 					onBlur={this.handleBlur}
 					errorText={this.state.errors.last_name}
 				/>
@@ -74,6 +86,7 @@ class SignUp extends React.Component {
 					onChange={this.handleChange}
 					name='email'
 					fullWidth
+					value={this.state.email}
 					onBlur={this.handleBlur}
 					errorText={this.state.errors.email}
 				/>
@@ -83,6 +96,7 @@ class SignUp extends React.Component {
 					name='password'
 					type='password'
 					fullWidth
+					value={this.state.password}
 					onBlur={this.handleBlur}
 					errorText={this.state.errors.password}
 				/>
@@ -92,6 +106,7 @@ class SignUp extends React.Component {
 					name='passwordConfirmation'
 					type='password'
           fullWidth
+					value={this.state.passwordConfirmation}
 					onBlur={this.handleBlur}
 					errorText={this.state.errors.passwordConfirmation}
 				/>
@@ -111,7 +126,10 @@ class SignUp extends React.Component {
 }
 
 SignUp.propTypes = {
-	userRegisterRequest: React.PropTypes.func.isRequired
+	userRegisterRequest: React.PropTypes.func.isRequired,
+	saveFormData: React.PropTypes.func.isRequired,
+	formData: React.PropTypes.object.isRequired,
+	clearFormData: React.PropTypes.func.isRequired
 };
 
 export default SignUp;

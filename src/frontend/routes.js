@@ -5,7 +5,7 @@ import App from './components/App';
 import Hello from './components/Hello';
 
 export default (
-	<Route path="/" component={App}>
+	<Route path='/' component={App}>
 		<IndexRoute component={Hello} />
 	</Route>
 );
