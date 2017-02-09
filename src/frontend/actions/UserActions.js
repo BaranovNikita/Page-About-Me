@@ -4,6 +4,6 @@ export function userRegisterRequest(userData) {
 	return () => axios.post('/api/users', userData);
 }
 
-export function isUserExists(identifier) {
-	return () => axios.get(`/api/users/${identifier}`);
+export function isUserExists(email) {
+	return () => axios.get(`/api/users/${email}`);
 }

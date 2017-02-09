@@ -1,6 +1,6 @@
-import Validator from 'validator';
+const Validator = require('validator');
 
-export default (data) => {
+module.exports = (data) => {
 	const errors = {};
 	if (!data.first_name || Validator.isEmpty(data.first_name)) {
 		errors.first_name = 'This field is required!';

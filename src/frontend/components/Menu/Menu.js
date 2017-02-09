@@ -66,7 +66,9 @@ class Menu extends React.Component {
 					open={this.state.signupDialog}
 					onRequestClose={this.signupDialogClose}
 				>
-					<SignUpWrapper />
+					<SignUpWrapper
+						closeDialog={this.signupDialogClose}
+					/>
 				</Dialog>
 			</div>);
 	}

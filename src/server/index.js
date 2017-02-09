@@ -50,7 +50,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use('/api/users/', require('./routes/user'));
+app.use('/api/users/', require('./routes/users'));
 
 app.get('/*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../../dist/index.html'));

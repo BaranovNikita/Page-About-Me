@@ -37,14 +37,16 @@ class SignUp extends React.Component {
 	handleClick() {
 		this.setState({ isLoading: true });
 		this.props.userRegisterRequest(this.state)
-			.then((user) => {
-				console.log(user);
-				this.setState({ isLoading: false });
+			.then(() => {
+				this.setState({ isLoading: false, errors: {} });
 				this.props.clearFormData();
+				if (this.props.successEvent) {
+					this.props.successEvent();
+				}
+
 			})
 			.catch((err) => {
-				console.log(err);
-				this.setState({ isLoading: false });
+				this.setState({ isLoading: false, errors: { ...this.state.errors, ...err.response.data } });
 				this.props.clearFormData();
 			});
 	}
@@ -55,8 +57,21 @@ class SignUp extends React.Component {
 		if (Object.prototype.hasOwnProperty.call(errors, e.target.name)) {
 			this.setState({ errors: Object.assign({}, this.state.errors, errors), isLoading: false });
 		} else {
-			const newStateError = { ...this.state.errors };
-			delete newStateError[e.target.name];
+			let newStateError = {};
+			if (e.target.name === 'email') {
+				this.props.isUserExists(e.target.value)
+					.then((response) => {
+						if (response.data.user) {
+							this.setState({ errors: { ...this.state.errors, email: 'Already exist!' } });
+						} else {
+							newStateError = { ...this.state.errors };
+							delete newStateError.email;
+						}
+					});
+			} else {
+				newStateError = { ...this.state.errors };
+				delete newStateError[e.target.name];
+			}
 			this.setState({ errors: newStateError, isLoading: false });
 		}
 	}
@@ -120,6 +135,7 @@ class SignUp extends React.Component {
 				<CircularProgress
 					style={{ display: (!this.state.isLoading ? 'none' : 'block'), margin: 'auto' }}
 				/>
+				{this.state.errors.message && <div className='error-box'>{this.state.errors.message}</div> }
 			</div>
 		);
 	}
@@ -129,7 +145,9 @@ SignUp.propTypes = {
 	userRegisterRequest: React.PropTypes.func.isRequired,
 	saveFormData: React.PropTypes.func.isRequired,
 	formData: React.PropTypes.object.isRequired,
-	clearFormData: React.PropTypes.func.isRequired
+	clearFormData: React.PropTypes.func.isRequired,
+	isUserExists: React.PropTypes.func.isRequired,
+	successEvent: React.PropTypes.func
 };
 
 export default SignUp;
