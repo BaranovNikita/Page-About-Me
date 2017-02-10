@@ -7,6 +7,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
+const User = require('./models/User');
 
 const app = express();
 
@@ -38,19 +39,17 @@ app.use(session({
 	secret: 'page-about-me',
 	store: new MongoStore({ mongooseConnection: mongoose.connection }),
 	resave: false,
-	saveUninitialized: true,
-	cookie: { secure: true }
+	saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-const User = require('./models/User');
-
-passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+passport.use(new LocalStrategy(User.authenticate()));
+
 app.use('/api/users/', require('./routes/users'));
+app.use('/api/auth/', require('./routes/auth'));
 
 app.get('/*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../../dist/index.html'));

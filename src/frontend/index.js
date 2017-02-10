@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rootReducer from './reducers/rootReducer';
 import Root from './Root';
 import App from './components/App';
+import { getActiveUser } from './actions/UserActions';
 
 const store = createStore(
 	rootReducer,
@@ -15,7 +16,6 @@ const store = createStore(
 		window.devToolsExtension ? window.devToolsExtension() : f => f,
 	),
 );
-
 
 const render = () => {
 	ReactDOM.render(
@@ -28,7 +28,8 @@ const render = () => {
 	);
 };
 
-render(App);
+store.dispatch(getActiveUser())
+	.then(() => render(App));
 
 if (module.hot) {
 	module.hot.accept('./Root', () => {

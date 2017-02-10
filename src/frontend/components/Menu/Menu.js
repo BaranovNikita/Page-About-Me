@@ -1,7 +1,11 @@
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Drawer, AppBar, MenuItem, Dialog, Toolbar, ToolbarGroup, RaisedButton } from 'material-ui';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import SignUpWrapper from '../SignUp/SignUpWrapper';
+import SignInWrapper from '../SignIn/SignInWrapper';
+import { logout } from '../../actions/UserActions';
 import styles from './Menu.pcss';
 
 injectTapEventPlugin();
@@ -12,11 +16,21 @@ class Menu extends React.Component {
 		this.state = {
 			drawerOpen: false,
 			signupDialog: false,
+			signinDialog: false
 		};
 		this.handleToggle = this.handleToggle.bind(this);
 		this.closeDrawer = this.closeDrawer.bind(this);
 		this.signupDialogClose = this.signupDialogClose.bind(this);
 		this.signupDialogOpen = this.signupDialogOpen.bind(this);
+		this.signinDialogClose = this.signinDialogClose.bind(this);
+		this.signinDialogOpen = this.signinDialogOpen.bind(this);
+		this.logout = this.logout.bind(this);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.authState.user) {
+			this.signinDialogClose();
+		}
 	}
 
 	handleToggle() {
@@ -35,7 +49,31 @@ class Menu extends React.Component {
 		this.setState({ signupDialog: true });
 	}
 
+	signinDialogClose() {
+		this.setState({ signinDialog: false });
+	}
+
+	signinDialogOpen() {
+		this.setState({ signinDialog: true });
+	}
+
+	logout() {
+		this.props.logout();
+	}
+
 	render() {
+		const ToolBarGroupGuest = (
+			<ToolbarGroup>
+				<RaisedButton label='Login' onTouchTap={this.signinDialogOpen} />
+				<RaisedButton label='Sign up' secondary onTouchTap={this.signupDialogOpen} />
+			</ToolbarGroup>
+		);
+		const ToolBarGroupUser = (
+			<ToolbarGroup>
+				<RaisedButton label='Profile' />
+				<RaisedButton label='Logout' secondary onTouchTap={this.logout} />
+			</ToolbarGroup>
+		);
 		return (
 			<div>
 				<AppBar
@@ -43,10 +81,7 @@ class Menu extends React.Component {
 					onLeftIconButtonTouchTap={this.handleToggle}
 				>
 					<Toolbar style={{ backgroundColor: 'transparent', height: 64 }}>
-						<ToolbarGroup>
-							<RaisedButton label='Login' />
-							<RaisedButton label='Sign up' secondary onTouchTap={this.signupDialogOpen} />
-						</ToolbarGroup>
+						{ this.props.authState.user ? ToolBarGroupUser : ToolBarGroupGuest }
 					</Toolbar>
 				</AppBar>
 				<Drawer
@@ -61,7 +96,7 @@ class Menu extends React.Component {
 					<MenuItem>Menu Item 2</MenuItem>
 				</Drawer>
 				<Dialog
-					title='SignUp'
+					title='Sign Up'
 					modal={false}
 					open={this.state.signupDialog}
 					onRequestClose={this.signupDialogClose}
@@ -70,9 +105,30 @@ class Menu extends React.Component {
 						closeDialog={this.signupDialogClose}
 					/>
 				</Dialog>
+				<Dialog
+					title='Sign In'
+					modal={false}
+					open={this.state.signinDialog}
+					onRequestClose={this.signinDialogClose}
+				>
+					<SignInWrapper
+						closeDialog={this.signinDialogClose}
+					/>
+				</Dialog>
 			</div>);
 	}
 }
+Menu.propTypes = {
+	authState: React.PropTypes.object.isRequired,
+	logout: React.PropTypes.func.isRequired
+};
 
+function mapStateToProps(state) {
+	return { authState: state.auth };
+}
 
-export default Menu;
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({ logout }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

@@ -16,7 +16,7 @@ class SignUpWrapper extends React.Component {
 					saveFormData={this.props.saveFormData}
 					clearFormData={this.props.clearFormData}
 					isUserExists={this.props.isUserExists}
-		    	successEvent={this.props.closeDialog}
+					successEvent={this.props.closeDialog}
 				/>
 			</Paper>
 		);

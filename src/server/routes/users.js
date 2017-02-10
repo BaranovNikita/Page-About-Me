@@ -11,7 +11,7 @@ router.post('/', (req, res) => {
 	if (!lodash.isEmpty(errors)) {
 		return res.status(500).json({ errors });
 	}
-	return User.register(new User(req.body), req.body.password, (err, user) => {
+	return User.register(new User(Object.assign({}, req.body, { username: req.body.email })), req.body.password, (err) => {
 		if (err) {
 			if (err.name === 'UserExistsError') {
 				return res.status(500).json({ email: 'User with this email already exist!' });

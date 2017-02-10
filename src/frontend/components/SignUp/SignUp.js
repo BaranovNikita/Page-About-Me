@@ -43,7 +43,6 @@ class SignUp extends React.Component {
 				if (this.props.successEvent) {
 					this.props.successEvent();
 				}
-
 			})
 			.catch((err) => {
 				this.setState({ isLoading: false, errors: { ...this.state.errors, ...err.response.data } });
