@@ -7,7 +7,7 @@ class SignUp extends React.Component {
 	constructor() {
 		super();
 		this.handleChange = this.handleChange.bind(this);
-		this.handleClick = this.handleClick.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
 		this.handleBlur = this.handleBlur.bind(this);
 		this.state = {
 			first_name: '',
@@ -30,11 +30,8 @@ class SignUp extends React.Component {
 		this.props.saveFormData(this.state);
 	}
 
-	handleChange(e) {
-		this.setState({ [e.target.name]: e.target.value });
-	}
-
-	handleClick() {
+	onSubmit(e) {
+		e.preventDefault();
 		this.setState({ isLoading: true });
 		this.props.userRegisterRequest(this.state)
 			.then(() => {
@@ -48,6 +45,10 @@ class SignUp extends React.Component {
 				this.setState({ isLoading: false, errors: { ...this.state.errors, ...err.response.data } });
 				this.props.clearFormData();
 			});
+	}
+
+	handleChange(e) {
+		this.setState({ [e.target.name]: e.target.value });
 	}
 
 	handleBlur(e) {
@@ -77,7 +78,7 @@ class SignUp extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<form onSubmit={this.onSubmit}>
 				<TextField
 					hintText='First name'
 					onChange={this.handleChange}
@@ -127,7 +128,7 @@ class SignUp extends React.Component {
 				<RaisedButton
 					label='Sign Up'
 					style={{ display: (this.state.isLoading ? 'none' : 'block') }}
-					onTouchTap={this.handleClick}
+					type='submit'
 					primary
 					disabled={!isEmpty(this.state.errors)}
 				/>
@@ -135,7 +136,7 @@ class SignUp extends React.Component {
 					style={{ display: (!this.state.isLoading ? 'none' : 'block'), margin: 'auto' }}
 				/>
 				{this.state.errors.message && <div className='error-box'>{this.state.errors.message}</div> }
-			</div>
+			</form>
 		);
 	}
 }

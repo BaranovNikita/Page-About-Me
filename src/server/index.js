@@ -7,12 +7,23 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
+const bunyan = require('bunyan');
 const User = require('./models/User');
+const config = require('./config');
 
 const app = express();
+const ENV = process.env.NODE_ENV || 'default';
 
-if (process.env.NODE_ENV !== 'production') {
-	if (process.env.NEED_HOT) {
+app.use(require('express-bunyan-logger')());
+
+const log = bunyan.createLogger({
+	name: 'page-about-me',
+	stream: process.stdout,
+	level: 'info'
+});
+
+if (ENV !== 'production') {
+	if (config.get(`${ENV}:NEED_HOT`)) {
 		const webpack = require('webpack');
 		const webpackMiddleware = require('webpack-dev-middleware');
 		const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -30,13 +41,13 @@ if (process.env.NODE_ENV !== 'production') {
 	}
 }
 
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/page-about-me');
+mongoose.connect(config.get(`${ENV}:MONGO_URI`) || 'mongodb://localhost/page-about-me');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-	secret: 'page-about-me',
+	secret: config.get(`${ENV}:SESSION_SECRET`),
 	store: new MongoStore({ mongooseConnection: mongoose.connection }),
 	resave: false,
 	saveUninitialized: true
@@ -47,7 +58,9 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 passport.use(new LocalStrategy(User.authenticate()));
-
+module.exports = {
+	getLogger: () => log
+};
 app.use('/api/users/', require('./routes/users'));
 app.use('/api/auth/', require('./routes/auth'));
 
@@ -56,5 +69,5 @@ app.get('/*', (req, res) => {
 });
 
 app.listen(process.env.PORT || 3000, () => {
-	console.log('Server started');
+	log.info('Server started');
 });

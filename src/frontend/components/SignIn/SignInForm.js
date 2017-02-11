@@ -10,20 +10,21 @@ class SignInForm extends React.Component {
 			password: ''
 		};
 		this.handleChange = this.handleChange.bind(this);
-		this.handleClick = this.handleClick.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
+	}
+
+	onSubmit(e) {
+		e.preventDefault();
+		this.props.authFunction(this.state);
 	}
 
 	handleChange(e) {
 		this.setState({ [e.target.name]: e.target.value });
 	}
 
-	handleClick() {
-		this.props.authFunction(this.state);
-	}
-
 	render() {
 		return (
-			<div>
+			<form onSubmit={this.onSubmit}>
 				<TextField
 					hintText='Email address'
 					onChange={this.handleChange}
@@ -44,14 +45,14 @@ class SignInForm extends React.Component {
 				<RaisedButton
 					label='Sign In'
 					style={{ display: (this.props.authState.request ? 'none' : 'block') }}
-					onTouchTap={this.handleClick}
 					primary
+					type='submit'
 				/>
 				<CircularProgress
 					style={{ display: (!this.props.authState.request ? 'none' : 'block'), margin: 'auto' }}
 				/>
 				{this.props.authState.errors.message && <div className={styles['error-box']}>{this.props.authState.errors.message}</div> }
-			</div>
+			</form>
 		);
 	}
 }

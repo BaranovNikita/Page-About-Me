@@ -45,24 +45,25 @@ export function logout() {
 }
 
 export function getActiveUser() {
-	return dispatch => new Promise((resolve, reject) => {
+	return dispatch => new Promise((resolve) => {
 		dispatch({
 			type: constants.AUTH_REQUEST
 		});
 		return axios.get('/api/auth')
 			.then((response) => {
-				dispatch({
-					type: constants.AUTH_SUCCESS,
-					payload: response.data.user
-				});
-				resolve();
-			})
-			.catch((err) => {
-				dispatch({
-					type: constants.AUTH_FAILED,
-					payload: err
-				});
-				reject();
+				if (response.data.user) {
+					dispatch({
+						type: constants.AUTH_SUCCESS,
+						payload: response.data.user
+					});
+					resolve();
+				} else {
+					dispatch({
+						type: constants.AUTH_FAILED,
+						payload: {}
+					});
+					resolve();
+				}
 			});
 	});
 }
