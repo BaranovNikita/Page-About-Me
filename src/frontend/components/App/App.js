@@ -12,8 +12,8 @@ class App extends React.Component {
 			<div>
 				<Menu />
 				<div className={styles.app}>
-					<div className={styles.big}>
-						this is big text
+					<div className={styles.title}>
+						Portfolio page by Baranov Nikita!
 					</div>
 					{this.props.children}
 				</div>

@@ -1,21 +1,16 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import * as styles from './styles.pcss';
+import Technologies from './Technologies';
 
 class Hello extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			clicked: false,
-		};
-		this.onTouchHandle = this.onTouchHandle.bind(this);
-	}
-
-	onTouchHandle() {
-		this.setState({ clicked: !this.state.clicked });
-	}
 
 	render() {
-		return <div>Hello!<RaisedButton label='Default' onTouchTap={this.onTouchHandle} /></div>;
+		return (<div className={styles.container}>
+			<div className={styles.centerText}>
+				Hello! My name is Baranov Nikita. I am fullstack web developer.
+			</div>
+			<Technologies styles={styles} />
+		</div>);
 	}
 }
 

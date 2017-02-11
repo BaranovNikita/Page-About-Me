@@ -79,6 +79,7 @@ class Menu extends React.Component {
 				<AppBar
 					title='Baranov Nikita'
 					onLeftIconButtonTouchTap={this.handleToggle}
+					style={{ position: 'fixed' }}
 				>
 					<Toolbar style={{ backgroundColor: 'transparent', height: 64 }}>
 						{ this.props.authState.user ? ToolBarGroupUser : ToolBarGroupGuest }

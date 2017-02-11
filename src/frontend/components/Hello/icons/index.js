@@ -1,0 +1,21 @@
+import * as reactLogo from './react.svg';
+import * as reduxLogo from './redux.png';
+import * as nodeLogo from './node.svg';
+import * as jQueryLogo from './jQurery.png';
+import * as aspNetLogo from './aspnet.png';
+import * as adfLogo from './Oracle-ADF.png';
+import * as html5Logo from './html5.png';
+import * as css3logo from './css3.png';
+import * as sqlLogo from './sql-logo.png';
+import * as mongoLogo from './mongo.png';
+
+export const react = reactLogo;
+export const redux = reduxLogo;
+export const node = nodeLogo;
+export const jQuery = jQueryLogo;
+export const aspNet = aspNetLogo;
+export const adf = adfLogo;
+export const mongo = mongoLogo;
+export const html5 = html5Logo;
+export const css3 = css3logo;
+export const sql = sqlLogo;

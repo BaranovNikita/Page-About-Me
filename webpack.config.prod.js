@@ -21,12 +21,19 @@ module.exports = {
 				exclude: /node_modules/,
 			},
 			{
-				test: /\.pcss$/,
+				test: /\.p?css$/,
 				use: ExtractTextPlugin.extract({
 					fallbackLoader: 'style-loader',
 					loader: 'css-loader?modules!postcss-loader',
 				}),
+				include: /.src/,
+				exclude: /node_modules/
 			},
+			{ test: /\.gif$/, use: 'url-loader?limit=10000&mimetype=image/gif' },
+			{ test: /\.jpg$/, use: 'url-loader?limit=10000&mimetype=image/jpg' },
+			{ test: /\.png$/, use: 'url-loader?limit=10000&mimetype=image/png' },
+			{ test: /\.svg/, use: 'url-loader?limit=26000&mimetype=image/svg+xml' },
+			{ test: /\.(woff|woff2|ttf|eot|otf)/, use: 'url-loader?limit=1' }
 		],
 	},
 	plugins: [
