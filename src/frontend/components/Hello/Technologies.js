@@ -51,6 +51,10 @@ class Technologies extends React.Component {
 			name: 'ADF',
 			language: 'Java',
 			icon: icons.adf
+		}, {
+			name: 'Android',
+			language: 'Java',
+			icon: icons.android
 		}];
 
 		const columns = [{

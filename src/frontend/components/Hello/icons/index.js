@@ -8,6 +8,7 @@ import * as html5Logo from './html5.png';
 import * as css3logo from './css3.png';
 import * as sqlLogo from './sql-logo.png';
 import * as mongoLogo from './mongo.png';
+import * as androidLogo from './android.png';
 
 export const react = reactLogo;
 export const redux = reduxLogo;
@@ -19,3 +20,4 @@ export const mongo = mongoLogo;
 export const html5 = html5Logo;
 export const css3 = css3logo;
 export const sql = sqlLogo;
+export const android = androidLogo;

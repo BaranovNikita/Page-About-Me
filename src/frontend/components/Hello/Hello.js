@@ -9,6 +9,7 @@ class Hello extends React.Component {
 			<div className={styles.centerText}>
 				Hello! My name is Baranov Nikita. I am fullstack web developer.
 			</div>
+			I am very familiar with the following list of technologies:
 			<Technologies styles={styles} />
 		</div>);
 	}

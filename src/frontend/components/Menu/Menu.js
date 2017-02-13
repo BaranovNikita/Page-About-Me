@@ -3,6 +3,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Drawer, AppBar, MenuItem, Dialog, Toolbar, ToolbarGroup, RaisedButton } from 'material-ui';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
 import SignUpWrapper from '../SignUp/SignUpWrapper';
 import SignInWrapper from '../SignIn/SignInWrapper';
 import { logout } from '../../actions/UserActions';
@@ -93,7 +94,7 @@ class Menu extends React.Component {
 					<div className={styles.drawerHeader}>
 						<div className={styles.text}>Baranov Nikita</div>
 					</div>
-					<MenuItem>Menu Item 1</MenuItem>
+					<MenuItem><Link to='/blog' activeClassName='active'>Blog</Link></MenuItem>
 					<MenuItem>Menu Item 2</MenuItem>
 				</Drawer>
 				<Dialog

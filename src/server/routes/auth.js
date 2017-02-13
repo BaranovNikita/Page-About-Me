@@ -1,6 +1,6 @@
 const express = require('express');
 const passport = require('passport');
-const logger = require('../index').getLogger();
+const logger = require('../utils/logger').getLogger();
 
 const router = express.Router();
 

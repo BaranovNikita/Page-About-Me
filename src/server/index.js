@@ -7,20 +7,14 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
-const bunyan = require('bunyan');
 const User = require('./models/User');
 const config = require('./config');
+const logger = require('./utils/logger').getLogger();
 
 const app = express();
 const ENV = process.env.NODE_ENV || 'default';
 
 app.use(require('express-bunyan-logger')());
-
-const log = bunyan.createLogger({
-	name: 'page-about-me',
-	stream: process.stdout,
-	level: 'info'
-});
 
 if (ENV !== 'production') {
 	if (config.get(`${ENV}:NEED_HOT`)) {
@@ -58,9 +52,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 passport.use(new LocalStrategy(User.authenticate()));
-module.exports = {
-	getLogger: () => log
-};
+
 app.use('/api/users/', require('./routes/users'));
 app.use('/api/auth/', require('./routes/auth'));
 
@@ -68,6 +60,6 @@ app.get('/*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../../dist/index.html'));
 });
 
-app.listen(process.env.PORT || 3000, () => {
-	log.info('Server started');
+app.listen(config.get(`${ENV}:PORT`) || 3000, () => {
+	logger.info('Server started');
 });
