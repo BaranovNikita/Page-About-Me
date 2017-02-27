@@ -1,7 +1,7 @@
 import * as actions from '../constants/ActionTypes';
 
 const initialState = {
-	user: false,
+	user: {},
 	errors: {},
 	request: false
 };

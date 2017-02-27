@@ -1,7 +1,9 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const config = require('./src/server/config');
 
+const ENV = process.env.NODE_ENV || 'default';
 module.exports = {
 	entry: [
 		'react-hot-loader/patch',
@@ -67,5 +69,8 @@ module.exports = {
 				context: './src',
 			},
 		}),
+		new webpack.DefinePlugin({
+			'process.env.ADMIN_EMAIL': config.get(`${ENV}:ADMIN_EMAIL`)
+		})
 	],
 };

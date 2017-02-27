@@ -3,7 +3,9 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const postcssNested = require('postcss-nested');
+const config = require('./src/server/config');
 
+const ENV = process.env.NODE_ENV || 'default';
 module.exports = {
 	entry: './frontend/index.js',
 	output: {
@@ -64,5 +66,8 @@ module.exports = {
 			},
 		}),
 		new webpack.optimize.UglifyJsPlugin(),
+		new webpack.DefinePlugin({
+			'process.env.ADMIN_EMAIL': config.get(`${ENV}:ADMIN_EMAIL`)
+		})
 	],
 };
