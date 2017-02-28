@@ -12,28 +12,21 @@ class BlogPage extends React.Component {
 	static propTypes = {
 		getBlogItems: React.PropTypes.func.isRequired,
 		blogItems: React.PropTypes.array.isRequired,
-		page: React.PropTypes.number.isRequired,
 		user: React.PropTypes.object,
 		isLoading: React.PropTypes.bool,
-		canPrev: React.PropTypes.bool,
-		canNext: React.PropTypes.bool
+		pageCount: React.PropTypes.number
 	};
 
 	constructor() {
 		super();
-		this.nextPage = this.nextPage.bind(this);
-		this.prevPage = this.prevPage.bind(this);
+		this.changePage = this.changePage.bind(this);
 	}
 	componentWillMount() {
 		this.props.getBlogItems(0, 5);
 	}
 
-	nextPage() {
-		this.props.getBlogItems((this.props.page + 1) * 5, 5);
-	}
-
-	prevPage() {
-		this.props.getBlogItems((this.props.page - 1) * 5, 5);
+	changePage(page) {
+		this.props.getBlogItems(page.selected * 5, 5);
 	}
 
 	render() {
@@ -50,11 +43,9 @@ class BlogPage extends React.Component {
 			</div>
 			<BlogList
 				items={this.props.blogItems}
-				page={this.props.page}
-				nextPage={this.nextPage}
-				prevPage={this.prevPage}
-				canPrev={this.props.canPrev}
-				canNext={this.props.canNext}
+				changePage={this.changePage}
+				pageCount={this.props.pageCount}
+				isLoading={this.props.isLoading}
 			/>
 		</div>);
 	}
@@ -70,11 +61,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
 	return {
 		blogItems: state.blog.items,
-		page: state.blog.page,
 		isLoading: state.blog.isLoading,
 		user: state.auth.user,
-		canPrev: state.blog.canPrev,
-		canNext: state.blog.canNext
+		pageCount: state.blog.pageCount
 	};
 }
 export default connect(mapStateToProps, mapDispatchToProps)(BlogPage);

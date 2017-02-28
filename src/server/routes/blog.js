@@ -8,9 +8,8 @@ router.get('/', async (req, res) => {
 	const { startIndex, count } = req.query;
 	try {
 		const items = await BlogItem.find({}).select({ __v: 0 }).sort('-date');
-		const canNext = (startIndex + count) < items.length;
-		const canPrev = startIndex > 0;
-		res.json({ items: items.slice(startIndex, startIndex + count), canNext, canPrev });
+		const pageCount = Math.max(1, Math.ceil(items.length / 5));
+		res.json({ items: items.slice(startIndex, startIndex + count), pageCount });
 	} catch (error) {
 		res.status(500).json({ error });
 	}

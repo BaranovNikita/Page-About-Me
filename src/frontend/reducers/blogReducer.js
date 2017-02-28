@@ -4,15 +4,13 @@ const initialState = {
 	items: [],
 	isLoading: false,
 	errors: {},
-	page: 0,
-	canNext: false,
-	canPrev: false
+	pageCount: 1
 };
 
 export default function blogReducer(state = initialState, action) {
 	switch (action.type) {
 		case constants.BLOG_GET_REQUEST:
-			return { ...state, isLoading: true };
+			return { ...state, isLoading: true, items: [] };
 		case constants.BLOG_GET_SUCCESS:
 			return { ...state, ...action.payload, isLoading: false };
 		case constants.BLOG_ADD_REQUEST:
