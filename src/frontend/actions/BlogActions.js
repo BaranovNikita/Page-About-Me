@@ -6,10 +6,10 @@ export function getBlogItems(startIndex, count) {
 		dispatch({
 			type: constants.BLOG_GET_REQUEST
 		});
-		return axios.get('/api/blog', { startIndex, count })
+		return axios.get(`/api/blog?startIndex=${startIndex}&count=${count}`)
 			.then(response => dispatch({
 				type: constants.BLOG_GET_SUCCESS,
-				payload: response.data
+				payload: { ...response.data, page: startIndex / 5 }
 			}))
 			.catch(err => dispatch({
 				type: constants.BLOG_GET_FAILED,

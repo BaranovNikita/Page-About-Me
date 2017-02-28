@@ -17,6 +17,6 @@ export default function registerForm(state = initialState, action) {
 		case CLEAR_REGISTER_FORM_DATA:
 			return initialState;
 		default:
-			return initialState;
+			return state;
 	}
 }

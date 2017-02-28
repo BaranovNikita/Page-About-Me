@@ -15,7 +15,9 @@
     "jsx-a11y/no-marquee": 0,
     "no-shadow": 0,
     "react/require-default-props": 0,
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": 0,
+    "linebreak-style": 0,
+    "no-eval": 0
   },
   "globals": {
     "window": true,

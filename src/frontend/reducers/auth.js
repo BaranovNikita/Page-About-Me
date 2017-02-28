@@ -21,6 +21,6 @@ export default function auth(state = initialState, action) {
 		case actions.LOGOUT_FAILED:
 			return { ...state, errors: action.payload, request: false };
 		default:
-			return initialState;
+			return state;
 	}
 }

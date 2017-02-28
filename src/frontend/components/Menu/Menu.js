@@ -3,7 +3,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Drawer, AppBar, MenuItem, Dialog, Toolbar, ToolbarGroup, RaisedButton } from 'material-ui';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
+import { isEmpty } from 'lodash';
 import SignUpWrapper from '../SignUp/SignUpWrapper';
 import SignInWrapper from '../SignIn/SignInWrapper';
 import { logout } from '../../actions/UserActions';
@@ -75,6 +76,7 @@ class Menu extends React.Component {
 				<RaisedButton label='Logout' secondary onTouchTap={this.logout} />
 			</ToolbarGroup>
 		);
+
 		return (
 			<div>
 				<AppBar
@@ -83,7 +85,7 @@ class Menu extends React.Component {
 					style={{ position: 'fixed' }}
 				>
 					<Toolbar style={{ backgroundColor: 'transparent', height: 64 }}>
-						{ this.props.authState.user ? ToolBarGroupUser : ToolBarGroupGuest }
+						{ !isEmpty(this.props.authState.user) ? ToolBarGroupUser : ToolBarGroupGuest }
 					</Toolbar>
 				</AppBar>
 				<Drawer
@@ -94,7 +96,12 @@ class Menu extends React.Component {
 					<div className={styles.drawerHeader}>
 						<div className={styles.text}>Baranov Nikita</div>
 					</div>
-					<MenuItem><Link to='/blog' activeClassName='active'>Blog</Link></MenuItem>
+					<MenuItem className={styles.menuItemWrapper}>
+						<IndexLink to='/' activeClassName={styles.active} className={styles.menuItem}>Home</IndexLink>
+					</MenuItem>
+					<MenuItem className={styles.menuItemWrapper}>
+						<Link to='/blog' activeClassName={styles.active} className={styles.menuItem}>Blog</Link>
+					</MenuItem>
 					<MenuItem>Menu Item 2</MenuItem>
 				</Drawer>
 				<Dialog

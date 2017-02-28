@@ -7,8 +7,6 @@ const ENV = process.env.NODE_ENV || 'default';
 module.exports = {
 	entry: [
 		'react-hot-loader/patch',
-		'webpack-dev-server/client?http://localhost:8080/',
-		'webpack/hot/only-dev-server',
 		'./frontend/index.js',
 	],
 	output: {
@@ -70,7 +68,9 @@ module.exports = {
 			},
 		}),
 		new webpack.DefinePlugin({
-			'process.env.ADMIN_EMAIL': config.get(`${ENV}:ADMIN_EMAIL`)
+			'process.env': {
+				ADMIN_EMAIL: JSON.stringify(config.get(`${ENV}:ADMIN_EMAIL`))
+			}
 		})
 	],
 };

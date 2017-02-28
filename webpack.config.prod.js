@@ -67,7 +67,9 @@ module.exports = {
 		}),
 		new webpack.optimize.UglifyJsPlugin(),
 		new webpack.DefinePlugin({
-			'process.env.ADMIN_EMAIL': config.get(`${ENV}:ADMIN_EMAIL`)
+			'process.env': {
+				ADMIN_EMAIL: JSON.stringify(config.get(`${ENV}:ADMIN_EMAIL`))
+			}
 		})
 	],
 };

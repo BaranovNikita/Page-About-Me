@@ -13,17 +13,17 @@ router.post('/', (req, res) => {
 		if (!user) { return res.status(500).json({ message: 'Invalid data!' }); }
 		return req.logIn(user, (err) => {
 			if (err) { return res.status(500).json({ message: err }); }
-			return res.json({ user: user._id });
+			return res.json({ user: { id: user._id, email: user.email } });
 		});
 	})(req, res);
 });
 
 router.get('/', (req, res) => {
-	logger.info(req.session.user);
-	if (req.session.user) {
-		return res.json({ user: req.user._id });
+	if (req.user) {
+		logger.info(`success auth: ${req.user.email}`);
+		return res.json({ user: { id: req.user._id, email: req.user.email } });
 	}
-	return res.json({ user: false });
+	return res.json({ user: {} });
 });
 
 router.get('/logout', (req, res) => {

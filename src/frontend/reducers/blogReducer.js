@@ -4,7 +4,9 @@ const initialState = {
 	items: [],
 	isLoading: false,
 	errors: {},
-	page: 1
+	page: 0,
+	canNext: false,
+	canPrev: false
 };
 
 export default function blogReducer(state = initialState, action) {

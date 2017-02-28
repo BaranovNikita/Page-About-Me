@@ -11,3 +11,21 @@
     font-size: 32px;
   }
 }
+
+.menuItemWrapper {
+  > div > div {
+    padding: 0 !important;
+  }
+  .menuItem {
+    width: 100%;
+    display: block;
+    text-decoration: none;
+    padding: 0 16px;
+    &:visited {
+      color: black;
+    }
+    &.active {
+      background-color: #33EFFF;
+    }
+  }
+}
