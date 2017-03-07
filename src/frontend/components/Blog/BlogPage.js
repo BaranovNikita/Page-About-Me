@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { getBlogItems, addBlogRecord } from '../../actions/BlogActions';
 import BlogList from './BlogList';
-import loader from './laoder.pcss';
+import Loading from '../Utils/Loading';
 
 class BlogPage extends React.Component {
 	static propTypes = {
@@ -36,11 +36,7 @@ class BlogPage extends React.Component {
 			{isAdmin && <FloatingActionButton>
 				<ContentAdd onTouchTap={() => browserHistory.push('/blog/add')} />
 			</FloatingActionButton> }
-			<div className={loader.spinner} style={{ display: (!this.props.isLoading ? 'none' : 'block') }}>
-				<div className={loader.bounce1} />
-				<div className={loader.bounce2} />
-				<div className={loader.bounce3} />
-			</div>
+			{this.props.isLoading && <Loading />}
 			<BlogList
 				items={this.props.blogItems}
 				changePage={this.changePage}

@@ -108,6 +108,7 @@ class Menu extends React.Component {
 					title='Sign Up'
 					modal={false}
 					open={this.state.signupDialog}
+					autoDetectWindowHeight={false}
 					onRequestClose={this.signupDialogClose}
 				>
 					<SignUpWrapper
@@ -118,6 +119,8 @@ class Menu extends React.Component {
 					title='Sign In'
 					modal={false}
 					open={this.state.signinDialog}
+					className='heh'
+					autoDetectWindowHeight={false}
 					onRequestClose={this.signinDialogClose}
 				>
 					<SignInWrapper
