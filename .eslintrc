@@ -17,7 +17,8 @@
     "react/require-default-props": 0,
     "no-underscore-dangle": 0,
     "linebreak-style": 0,
-    "no-eval": 0
+    "no-eval": 0,
+    "jsx-a11y/no-static-element-interactions": 0
   },
   "globals": {
     "window": true,

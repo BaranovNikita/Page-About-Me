@@ -2,6 +2,7 @@ import React from 'react';
 import jss from 'jss';
 import preset from 'jss-preset-default';
 import ReactPaginate from 'react-paginate';
+import { browserHistory } from 'react-router';
 import BlogListItem from './BlogListItem';
 
 jss.setup(preset());
@@ -74,6 +75,15 @@ class BlogList extends React.Component {
 		isLoading: React.PropTypes.bool
 	};
 
+	constructor() {
+		super();
+		this.itemClick = this.itemClick.bind(this);
+	}
+
+	itemClick(id) { // eslint-disable-line
+		browserHistory.push(`/blog/${id}`);
+	}
+
 	render() {
 		return (<div className={classes.containerWrap}>
 			<div>
@@ -82,6 +92,7 @@ class BlogList extends React.Component {
 						{...item}
 						classes={classes}
 						key={item._id}
+						handleClick={this.itemClick}
 					>
 						{item.body}
 					</BlogListItem>

@@ -4,6 +4,7 @@ import preset from 'jss-preset-default';
 import { TextField, Checkbox, RaisedButton } from 'material-ui';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import RichEditor from './RichEditor';
 import * as actions from '../../actions/BlogActions';
 
 class AddRecord extends React.Component {
@@ -29,9 +30,13 @@ class AddRecord extends React.Component {
 	}
 
 	onChange(e) {
-		const target = e.target;
-		const value = target.type === 'checkbox' ? target.checked : target.value;
-		this.setState({ [e.target.name]: value });
+		if (e instanceof Object) {
+			const target = e.target;
+			const value = target.type === 'checkbox' ? target.checked : target.value;
+			this.setState({ [e.target.name]: value });
+		} else {
+			this.setState({ body: e });
+		}
 	}
 
 	render() {
@@ -60,13 +65,7 @@ class AddRecord extends React.Component {
 						value={this.state.title}
 						onChange={this.onChange}
 					/><br />
-					<TextField
-						hintText='Body'
-						multiLine
-						rows={10}
-						fullWidth
-						name='body'
-						value={this.state.body}
+					<RichEditor
 						onChange={this.onChange}
 					/><br />
 					<Checkbox
