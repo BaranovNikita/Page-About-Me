@@ -123,9 +123,7 @@ class Menu extends React.Component {
 					autoDetectWindowHeight={false}
 					onRequestClose={this.signinDialogClose}
 				>
-					<SignInWrapper
-						closeDialog={this.signinDialogClose}
-					/>
+					<SignInWrapper />
 				</Dialog>
 			</div>);
 	}
